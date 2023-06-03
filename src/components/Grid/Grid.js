@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "./Grid.css";
+import { GlobalContextProvider } from "../Global/GlobalContext";
 const Grid = ({ row, col }) => {
-  const CROSS = "X";
-  const ZERO = "0";
-  const [currentPlayer, setCurrentPlayer] = useState("");
-  const gridClickced = () => {
-    setCurrentPlayer(ZERO);
-  };
+  const { grids, gridClicked } = useContext(GlobalContextProvider);
+  const currentPlayer = grids[row][col];
+
   return (
-    <div role="grid" className="grid" onClick={() => gridClickced(row, col)}>
+    <div role="grid" className="grid" onClick={() => gridClicked(row, col)}>
       <div data-testid="currentPlayer">{currentPlayer}</div>
     </div>
   );
