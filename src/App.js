@@ -1,5 +1,5 @@
 import "./App.css";
-import Grid from "./components/Grid/Grid";
+import Board from "./components/Board/Board";
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <h3>Tic Tac Toe</h3>
       </header>
-      <Grid />
+      <Board />
     </div>
   );
 }

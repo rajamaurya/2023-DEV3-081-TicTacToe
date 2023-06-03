@@ -1,0 +1,12 @@
+.board-container {
+  width: 360px;
+  height: 360px;
+  top: 40%;
+  left: 40%;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid gray;
+}
+.board-container {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
