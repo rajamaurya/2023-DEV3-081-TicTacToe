@@ -32,4 +32,18 @@ describe("tic tac toe game", () => {
     const status = screen.getByTestId("status");
     expect(status).toHaveTextContent("Winner: Player X");
   });
+
+  test("declare a player winner if all the second row box is marked in his name", () => {
+    appSetUp();
+
+    const cells = screen.getAllByRole("grid");
+    fireEvent.click(cells[3]);
+    fireEvent.click(cells[2]);
+    fireEvent.click(cells[4]);
+    fireEvent.click(cells[6]);
+    fireEvent.click(cells[5]);
+
+    const status = screen.getByTestId("status");
+    expect(status).toHaveTextContent("Winner: Player X");
+  });
 });

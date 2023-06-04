@@ -15,6 +15,7 @@ const GlobalContext = ({ children }) => {
 
   useEffect(() => {
     checkRow(0);
+    checkRow(1);
   }, [grids]);
   /**
    *  check specific row cells status
