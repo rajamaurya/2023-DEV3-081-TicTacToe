@@ -10,6 +10,12 @@ const appSetUp = () => {
   );
 };
 
+const fireEventByPosition = (cells, positions) => {
+  positions.forEach((position) => {
+    fireEvent.click(cells[position]);
+  });
+};
+
 describe("tic tac toe game", () => {
   test("display game title", () => {
     appSetUp();
@@ -23,11 +29,7 @@ describe("tic tac toe game", () => {
     appSetUp();
 
     const cells = screen.getAllByRole("grid");
-    fireEvent.click(cells[0]);
-    fireEvent.click(cells[4]);
-    fireEvent.click(cells[1]);
-    fireEvent.click(cells[3]);
-    fireEvent.click(cells[2]);
+    fireEventByPosition(cells, [0, 4, 1, 3, 2]);
 
     const status = screen.getByTestId("status");
     expect(status).toHaveTextContent("Winner: Player X");
@@ -37,11 +39,7 @@ describe("tic tac toe game", () => {
     appSetUp();
 
     const cells = screen.getAllByRole("grid");
-    fireEvent.click(cells[3]);
-    fireEvent.click(cells[2]);
-    fireEvent.click(cells[4]);
-    fireEvent.click(cells[6]);
-    fireEvent.click(cells[5]);
+    fireEventByPosition(cells, [3, 2, 4, 6, 5]);
 
     const status = screen.getByTestId("status");
     expect(status).toHaveTextContent("Winner: Player X");
