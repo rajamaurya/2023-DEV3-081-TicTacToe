@@ -19,6 +19,7 @@ const GlobalContext = ({ children }) => {
     checkRow(2);
     checkCol(0);
     checkCol(1);
+    checkCol(2);
   }, [grids]);
   /**
    *  check specific row cells status
