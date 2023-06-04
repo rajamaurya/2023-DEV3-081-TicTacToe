@@ -25,7 +25,7 @@ describe("tic tac toe game", () => {
     expect(header).toBeInTheDocument();
   });
 
-  test("declare a player winner if all the first row box is marked in his name", () => {
+  test("declare a player winner if all the first row boxes is marked in his name", () => {
     appSetUp();
 
     const cells = screen.getAllByRole("grid");
@@ -35,7 +35,7 @@ describe("tic tac toe game", () => {
     expect(status).toHaveTextContent("Winner: Player X");
   });
 
-  test("declare a player winner if all the second row box is marked in his name", () => {
+  test("declare a player winner if all the second row boxes is marked in his name", () => {
     appSetUp();
 
     const cells = screen.getAllByRole("grid");
@@ -45,7 +45,7 @@ describe("tic tac toe game", () => {
     expect(status).toHaveTextContent("Winner: Player X");
   });
 
-  test("declare a player winner if all the third row box is marked in his name", () => {
+  test("declare a player winner if all the third row boxes is marked in his name", () => {
     appSetUp();
 
     const cells = screen.getAllByRole("grid");
