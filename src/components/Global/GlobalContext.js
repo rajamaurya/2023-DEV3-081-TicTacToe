@@ -66,6 +66,15 @@ const GlobalContext = ({ children }) => {
       setWinner("X");
       return true;
     }
+    // from right to left
+    if (
+      grids[1][1] &&
+      grids[2][0] === grids[1][1] &&
+      grids[2][0] === grids[0][2]
+    ) {
+      setWinner("X");
+      return true;
+    }
     return false;
   };
   const gridClicked = (row, col) => {
