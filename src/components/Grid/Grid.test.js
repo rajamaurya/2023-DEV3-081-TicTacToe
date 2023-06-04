@@ -3,15 +3,19 @@ import Grid from "./Grid";
 import Board from "../Board/Board";
 import GlobalContext from "../Global/GlobalContext";
 
+const gridSetUp = () => {
+  render(
+    <GlobalContext>
+      <Board>
+        <Grid />
+      </Board>
+    </GlobalContext>
+  );
+};
+
 describe("display cells", () => {
   test("display a single box of board", () => {
-    render(
-      <GlobalContext>
-        <Board>
-          <Grid />
-        </Board>
-      </GlobalContext>
-    );
+    gridSetUp();
 
     const grid = screen.getAllByRole("grid");
     let singleBox = [grid[0]];
@@ -21,13 +25,7 @@ describe("display cells", () => {
   });
 
   test("display X when player-X select the box", () => {
-    render(
-      <GlobalContext>
-        <Board>
-          <Grid />
-        </Board>
-      </GlobalContext>
-    );
+    gridSetUp();
 
     const grid = screen.getAllByRole("grid");
     expect(grid).toHaveLength(9);
@@ -42,13 +40,8 @@ describe("display cells", () => {
   });
 
   test("display 0 when player-0 select the box", () => {
-    render(
-      <GlobalContext>
-        <Board>
-          <Grid />
-        </Board>
-      </GlobalContext>
-    );
+    gridSetUp();
+
     const grid = screen.getAllByRole("grid");
     expect(grid).toHaveLength(9);
     expect(grid[0]).toBeInTheDocument();
@@ -58,13 +51,7 @@ describe("display cells", () => {
   });
 
   test("toggle player X and 0", () => {
-    render(
-      <GlobalContext>
-        <Board>
-          <Grid />
-        </Board>
-      </GlobalContext>
-    );
+    gridSetUp();
 
     const grid = screen.getAllByRole("grid");
     expect(grid).toHaveLength(9);
@@ -86,13 +73,7 @@ describe("display cells", () => {
   });
 
   test("player should not be able to select the box if it is already selected", () => {
-    render(
-      <GlobalContext>
-        <Board>
-          <Grid />
-        </Board>
-      </GlobalContext>
-    );
+    gridSetUp();
 
     const grid = screen.getAllByRole("grid");
     const clickedCell1 = fireEvent.click(grid[0]);

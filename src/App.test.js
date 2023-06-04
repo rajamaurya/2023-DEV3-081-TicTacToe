@@ -2,13 +2,17 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 import GlobalContext from "./components/Global/GlobalContext";
 
+const appSetUp = () => {
+  render(
+    <GlobalContext>
+      <App />
+    </GlobalContext>
+  );
+};
+
 describe("tic tac toe game", () => {
   test("display game title", () => {
-    render(
-      <GlobalContext>
-        <App />
-      </GlobalContext>
-    );
+    appSetUp();
 
     const header = screen.getByText(/Tic Tac Toe/i);
 
@@ -16,11 +20,7 @@ describe("tic tac toe game", () => {
   });
 
   test("declare a player winner if all the first row box is marked in his name", () => {
-    render(
-      <GlobalContext>
-        <App />
-      </GlobalContext>
-    );
+    appSetUp();
 
     const cells = screen.getAllByRole("grid");
     fireEvent.click(cells[0]);
