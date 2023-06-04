@@ -7,6 +7,7 @@ const GlobalContext = ({ children }) => {
   const ZERO = "0";
   const [currentPlayer, setCurrentPlayer] = useState(CROSS);
   const [winner, setWinner] = useState("");
+  const [isGameOver, setIsGameOver] = useState(false);
   const [grids, setGrids] = useState([
     ["", "", ""],
     ["", "", ""],
@@ -21,6 +22,13 @@ const GlobalContext = ({ children }) => {
     checkCol(1);
     checkCol(2);
     checkDiagonal();
+    if (
+      !grids[0].includes("") &&
+      !grids[1].includes("") &&
+      !grids[2].includes("")
+    ) {
+      setIsGameOver(true);
+    }
   }, [grids]);
   /**
    *  check specific row cells status
@@ -34,6 +42,7 @@ const GlobalContext = ({ children }) => {
       grids[cell][0] === grids[cell][2]
     ) {
       setWinner(grids[cell][0]);
+      setIsGameOver(true);
       return true;
     }
     return false;
@@ -51,6 +60,7 @@ const GlobalContext = ({ children }) => {
       grids[0][col] === grids[2][col]
     ) {
       setWinner(grids[0][col]);
+      setIsGameOver(true);
       return true;
     }
     return false;
@@ -64,6 +74,7 @@ const GlobalContext = ({ children }) => {
       grids[0][0] === grids[2][2]
     ) {
       setWinner(grids[0][0]);
+      setIsGameOver(true);
       return true;
     }
     // from right to left
@@ -73,6 +84,7 @@ const GlobalContext = ({ children }) => {
       grids[2][0] === grids[0][2]
     ) {
       setWinner(grids[1][1]);
+      setIsGameOver(true);
       return true;
     }
     return false;
@@ -97,6 +109,7 @@ const GlobalContext = ({ children }) => {
         checkRow,
         checkCol,
         winner,
+        isGameOver,
       }}
     >
       {children}
