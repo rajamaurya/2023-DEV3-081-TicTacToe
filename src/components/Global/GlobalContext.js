@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const GlobalContextProvider = createContext();
 
@@ -6,11 +6,32 @@ const GlobalContext = ({ children }) => {
   const CROSS = "X";
   const ZERO = "0";
   const [currentPlayer, setCurrentPlayer] = useState(CROSS);
+  const [winner, setWinner] = useState("");
   const [grids, setGrids] = useState([
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
   ]);
+
+  useEffect(() => {
+    checkRow(0);
+  }, [grids]);
+  /**
+   *  check specific row cells status
+   * @param {*} cell
+   * @returns boolean
+   */
+  const checkRow = (cell) => {
+    if (
+      grids[cell][0] &&
+      grids[cell][0] === grids[cell][1] &&
+      grids[cell][0] === grids[cell][2]
+    ) {
+      setWinner("X");
+      return true;
+    }
+    return false;
+  };
 
   const gridClicked = (row, col) => {
     if (grids[row][col] !== "") return;
@@ -29,6 +50,8 @@ const GlobalContext = ({ children }) => {
         currentPlayer,
         setCurrentPlayer,
         gridClicked,
+        checkRow,
+        winner,
       }}
     >
       {children}
