@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 
 export const GlobalContextProvider = createContext();
+
 const GlobalContext = ({ children }) => {
   const CROSS = "X";
   const ZERO = "0";
@@ -10,12 +11,15 @@ const GlobalContext = ({ children }) => {
     ["", "", ""],
     ["", "", ""],
   ]);
+
   const gridClicked = (row, col) => {
+    if (grids[row][col] !== "") return;
     const cloneBoard = { ...grids };
     grids[row][col] = currentPlayer;
     setGrids(cloneBoard);
     currentPlayer === CROSS ? setCurrentPlayer(ZERO) : setCurrentPlayer(CROSS);
   };
+
   return (
     <GlobalContextProvider.Provider
       value={{

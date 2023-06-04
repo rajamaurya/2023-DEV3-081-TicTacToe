@@ -8,3 +8,9 @@
   border: 1px solid purple;
   transition: 0.4s;
 }
+.grid:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.grid.disabled {
+  background-color: rgb(103, 103, 109);
+}
