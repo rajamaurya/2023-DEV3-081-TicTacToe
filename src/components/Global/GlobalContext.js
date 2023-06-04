@@ -17,6 +17,7 @@ const GlobalContext = ({ children }) => {
     checkRow(0);
     checkRow(1);
     checkRow(2);
+    checkCol(0);
   }, [grids]);
   /**
    *  check specific row cells status
@@ -35,6 +36,22 @@ const GlobalContext = ({ children }) => {
     return false;
   };
 
+  /**
+   *  check specific column status
+   * @param {*} col
+   * @returns boolean
+   */
+  const checkCol = (col) => {
+    if (
+      grids[0][col] &&
+      grids[0][col] === grids[1][col] &&
+      grids[0][col] === grids[2][col]
+    ) {
+      setWinner("X");
+      return true;
+    }
+    return false;
+  };
   const gridClicked = (row, col) => {
     if (grids[row][col] !== "") return;
     const cloneBoard = { ...grids };
@@ -53,6 +70,7 @@ const GlobalContext = ({ children }) => {
         setCurrentPlayer,
         gridClicked,
         checkRow,
+        checkCol,
         winner,
       }}
     >
