@@ -50,7 +50,7 @@ const GlobalContext = ({ children }) => {
       grids[0][col] === grids[1][col] &&
       grids[0][col] === grids[2][col]
     ) {
-      setWinner("X");
+      setWinner(grids[0][col]);
       return true;
     }
     return false;

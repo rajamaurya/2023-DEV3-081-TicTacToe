@@ -114,4 +114,14 @@ describe("tic tac toe game", () => {
     const status = screen.getByTestId("status");
     expect(status).toHaveTextContent("Winner: Player 0");
   });
+
+  test("declare a player 0 winner if all the boxes in a column is marked in his name", () => {
+    appSetUp();
+
+    const cells = screen.getAllByRole("grid");
+    fireEventByPosition(cells, [3, 1, 2, 4, 6, 7]);
+
+    const status = screen.getByTestId("status");
+    expect(status).toHaveTextContent("Winner: Player 0");
+  });
 });
