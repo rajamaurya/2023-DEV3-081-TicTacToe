@@ -63,7 +63,7 @@ const GlobalContext = ({ children }) => {
       grids[0][0] === grids[1][1] &&
       grids[0][0] === grids[2][2]
     ) {
-      setWinner("X");
+      setWinner(grids[0][0]);
       return true;
     }
     // from right to left
@@ -72,7 +72,7 @@ const GlobalContext = ({ children }) => {
       grids[2][0] === grids[1][1] &&
       grids[2][0] === grids[0][2]
     ) {
-      setWinner("X");
+      setWinner(grids[1][1]);
       return true;
     }
     return false;
