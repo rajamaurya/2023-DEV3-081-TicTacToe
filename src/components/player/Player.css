@@ -1,0 +1,11 @@
+.player{
+    width: 260px;
+    left: 40%;
+    padding-top: 20px;
+    position: relative;
+    font-size:large;
+    font-size:calc(4px + 4vmin);
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    color: green;
+}
