@@ -144,4 +144,14 @@ describe("tic tac toe game", () => {
     const status = screen.getByTestId("status");
     expect(status).toHaveTextContent("Draw");
   });
+
+  test("hide the current player when we have the winner or the game is over", () => {
+    appSetUp();
+
+    const cells = screen.getAllByRole("grid");
+    fireEventByPosition(cells, [3, 2, 1, 4, 7, 6]);
+
+    const currentPlayer = screen.queryByText("Player:");
+    expect(currentPlayer).toBeNull();
+  });
 });

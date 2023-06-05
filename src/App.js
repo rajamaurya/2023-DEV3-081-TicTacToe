@@ -14,7 +14,7 @@ function App() {
         <h3>Tic Tac Toe</h3>
       </header>
       <Board />
-      <Player />
+      {!winner && !isGameOver && <Player />}
       <div data-testid="status">
         {winner ? `Winner: Player ${winner}` : isGameOver ? "Draw" : ""}
       </div>
