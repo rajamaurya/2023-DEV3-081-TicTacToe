@@ -97,6 +97,16 @@ const GlobalContext = ({ children }) => {
     currentPlayer === CROSS ? setCurrentPlayer(ZERO) : setCurrentPlayer(CROSS);
   };
 
+  const resetBtnController = () => {
+    setGrids([
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ]);
+    setWinner("");
+    setIsGameOver(false);
+  };
+
   return (
     <GlobalContextProvider.Provider
       value={{
@@ -110,6 +120,7 @@ const GlobalContext = ({ children }) => {
         checkCol,
         winner,
         isGameOver,
+        resetBtnController,
       }}
     >
       {children}

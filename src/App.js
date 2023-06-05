@@ -4,9 +4,12 @@ import Board from "./components/Board/Board";
 import { GlobalContextProvider } from "./components/Global/GlobalContext";
 import Player from "./components/player/Player";
 import GameOver from "./components/game-over/GameOver";
+import ResetButton from "./components/reset-button/ResetButton";
 
 function App() {
-  const { winner, isGameOver } = useContext(GlobalContextProvider);
+  const { grids, winner, isGameOver, resetBtnController } = useContext(
+    GlobalContextProvider
+  );
 
   return (
     <div className="App">
@@ -19,6 +22,11 @@ function App() {
         {winner ? `Winner: Player ${winner}` : isGameOver ? "Draw" : ""}
       </div>
       {isGameOver && <GameOver />}
+      {isGameOver ? (
+        <ResetButton btnController={() => resetBtnController()} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

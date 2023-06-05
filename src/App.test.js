@@ -154,4 +154,20 @@ describe("tic tac toe game", () => {
     const currentPlayer = screen.queryByText("Player:");
     expect(currentPlayer).toBeNull();
   });
+
+  test("reset the game on reset game box click", () => {
+    appSetUp();
+
+    const cells = screen.getAllByRole("grid");
+    fireEventByPosition(cells, [3, 2, 1, 4, 7, 6]);
+
+    const resetButton = screen.getByTestId("reset-btn");
+    fireEvent.click(resetButton);
+
+    const currentPlayer = screen.queryByText("Player:");
+    const status = screen.getByTestId("status");
+    expect(status).toHaveTextContent("");
+    expect(currentPlayer).toHaveTextContent("Player: X");
+    expect(resetButton).not.toBeInTheDocument();
+  });
 });
