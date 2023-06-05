@@ -47,7 +47,12 @@ describe("display cells", () => {
     expect(grid[0]).toBeInTheDocument();
 
     const clickCell1 = fireEvent.click(grid[0]);
+    const clickCell2 = fireEvent.click(grid[1]);
+    const currentPlayer = screen.getAllByTestId("currentPlayer");
+
     expect(clickCell1).toBe(true);
+    expect(clickCell2).toBe(true);
+    expect(currentPlayer[1]).toHaveTextContent("0");
   });
 
   test("toggle player X and 0", () => {
