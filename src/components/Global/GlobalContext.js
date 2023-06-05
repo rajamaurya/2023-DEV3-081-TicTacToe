@@ -1,10 +1,18 @@
 import { createContext, useEffect, useState } from "react";
 
+import {
+  CROSS,
+  ZERO,
+  FIRST_ROW,
+  SECOND_ROW,
+  THIRD_ROW,
+  FIRST_COL,
+  SECOND_COL,
+  THIRD_COL,
+} from "../../constant";
 export const GlobalContextProvider = createContext();
 
 const GlobalContext = ({ children }) => {
-  const CROSS = "X";
-  const ZERO = "0";
   const [currentPlayer, setCurrentPlayer] = useState(CROSS);
   const [winner, setWinner] = useState("");
   const [isGameOver, setIsGameOver] = useState(false);
@@ -15,86 +23,114 @@ const GlobalContext = ({ children }) => {
   ]);
 
   useEffect(() => {
-    checkRow(0);
-    checkRow(1);
-    checkRow(2);
-    checkCol(0);
-    checkCol(1);
-    checkCol(2);
-    checkDiagonal();
-    if (
-      !grids[0].includes("") &&
-      !grids[1].includes("") &&
-      !grids[2].includes("")
-    ) {
+    if (checkForWinner()) {
+      setWinner(getWinner());
       setIsGameOver(true);
+    } else {
+      checkGameStatus();
     }
   }, [grids]);
-  /**
-   *  check specific row cells status
-   * @param {*} cell
-   * @returns boolean
-   */
-  const checkRow = (cell) => {
-    if (
-      grids[cell][0] &&
-      grids[cell][0] === grids[cell][1] &&
-      grids[cell][0] === grids[cell][2]
-    ) {
-      setWinner(grids[cell][0]);
-      setIsGameOver(true);
-      return true;
-    }
-    return false;
+
+  const getWinner = () => {
+    return currentPlayer === CROSS ? ZERO : CROSS;
   };
 
-  /**
-   *  check specific column status
-   * @param {*} col
-   * @returns boolean
-   */
-  const checkCol = (col) => {
-    if (
-      grids[0][col] &&
-      grids[0][col] === grids[1][col] &&
-      grids[0][col] === grids[2][col]
-    ) {
-      setWinner(grids[0][col]);
-      setIsGameOver(true);
-      return true;
-    }
-    return false;
+  const isGridsMarkedBySamePlayer = (firstGrid, secondGrid, thirdGrid) => {
+    return firstGrid && firstGrid === secondGrid && firstGrid === thirdGrid;
+  };
+
+  const checkFirstRow = () => {
+    return isGridsMarkedBySamePlayer(
+      grids[FIRST_ROW][FIRST_COL],
+      grids[FIRST_ROW][SECOND_COL],
+      grids[FIRST_ROW][THIRD_COL]
+    );
+  };
+
+  const checkSecondRow = () => {
+    return isGridsMarkedBySamePlayer(
+      grids[SECOND_ROW][FIRST_COL],
+      grids[SECOND_ROW][SECOND_COL],
+      grids[SECOND_ROW][THIRD_COL]
+    );
+  };
+
+  const checkThirdRow = () => {
+    return isGridsMarkedBySamePlayer(
+      grids[THIRD_ROW][FIRST_COL],
+      grids[THIRD_ROW][SECOND_COL],
+      grids[THIRD_ROW][THIRD_COL]
+    );
+  };
+
+  const checkRow = () => {
+    return checkFirstRow() || checkSecondRow() || checkThirdRow();
+  };
+
+  const checkFirstCol = () => {
+    return isGridsMarkedBySamePlayer(
+      grids[FIRST_ROW][FIRST_COL],
+      grids[SECOND_ROW][FIRST_COL],
+      grids[THIRD_ROW][FIRST_COL]
+    );
+  };
+
+  const checkSecondCol = () => {
+    return isGridsMarkedBySamePlayer(
+      grids[FIRST_ROW][SECOND_COL],
+      grids[SECOND_ROW][SECOND_COL],
+      grids[THIRD_ROW][SECOND_COL]
+    );
+  };
+
+  const checkThirdCol = () => {
+    return isGridsMarkedBySamePlayer(
+      grids[FIRST_ROW][THIRD_COL],
+      grids[SECOND_ROW][THIRD_COL],
+      grids[THIRD_ROW][THIRD_COL]
+    );
+  };
+
+  const checkCol = () => {
+    return checkFirstCol() || checkSecondCol() || checkThirdCol();
+  };
+
+  const checkLeftDiagonal = () => {
+    return isGridsMarkedBySamePlayer(
+      grids[FIRST_ROW][FIRST_COL],
+      grids[SECOND_ROW][SECOND_COL],
+      grids[THIRD_ROW][THIRD_COL]
+    );
+  };
+
+  const checkRightDiagonal = () => {
+    return isGridsMarkedBySamePlayer(
+      grids[FIRST_ROW][THIRD_COL],
+      grids[SECOND_ROW][SECOND_COL],
+      grids[THIRD_ROW][FIRST_COL]
+    );
   };
 
   const checkDiagonal = () => {
-    // from left to right
-    if (
-      grids[1][1] &&
-      grids[0][0] === grids[1][1] &&
-      grids[0][0] === grids[2][2]
-    ) {
-      setWinner(grids[0][0]);
-      setIsGameOver(true);
-      return true;
-    }
-    // from right to left
-    if (
-      grids[1][1] &&
-      grids[2][0] === grids[1][1] &&
-      grids[2][0] === grids[0][2]
-    ) {
-      setWinner(grids[1][1]);
-      setIsGameOver(true);
-      return true;
-    }
-    return false;
+    return checkLeftDiagonal() || checkRightDiagonal();
   };
+
+  const checkForWinner = () => {
+    return checkRow() || checkCol() || checkDiagonal();
+  };
+
   const gridClicked = (row, col) => {
     if (grids[row][col] !== "") return;
     const cloneBoard = { ...grids };
     grids[row][col] = currentPlayer;
     setGrids(cloneBoard);
-    currentPlayer === CROSS ? setCurrentPlayer(ZERO) : setCurrentPlayer(CROSS);
+    togglePlayer();
+  };
+
+  const togglePlayer = () => {
+    return currentPlayer === CROSS
+      ? setCurrentPlayer(ZERO)
+      : setCurrentPlayer(CROSS);
   };
 
   const resetBtnController = () => {
@@ -107,14 +143,21 @@ const GlobalContext = ({ children }) => {
     setIsGameOver(false);
   };
 
+  const checkGameStatus = () => {
+    if (
+      !grids[0].includes("") &&
+      !grids[1].includes("") &&
+      !grids[2].includes("")
+    ) {
+      setIsGameOver(true);
+    }
+  };
+
   return (
     <GlobalContextProvider.Provider
       value={{
-        CROSS,
-        ZERO,
         grids,
         currentPlayer,
-        setCurrentPlayer,
         gridClicked,
         checkRow,
         checkCol,
