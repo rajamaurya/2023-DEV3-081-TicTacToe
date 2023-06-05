@@ -1,0 +1,13 @@
+.game-over{
+    width: 160px;
+    left: 44%;
+    position: relative;
+    font-size: 24px;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    background-color: green;
+    color: white;
+    transition: 0.3s;
+    bottom:10px;
+}
